@@ -36,7 +36,11 @@
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{graphicx}
+\usepackage{subfig}
 \usepackage[colorinlistoftodos]{todonotes}
+
+\usepackage{footnote}
+\makesavenoteenv{figure}
 
 \usepackage[babel,english=british]{csquotes} % cool quotes
 \usepackage[backend=biber]{biblatex} % bibliogrpahy
@@ -119,14 +123,31 @@ Your abstract.
 \subsection{What's the aim?}
 
 \section{Physiology}
-The knowledge of the functional structure of the human brain a major issue not only for neuroscientists but to some extend also for everyone.
-Understanding how individual neurons process signals, is well understood on a biophysical, biochemical level.\cite[xxx]{guyton}
-However it is an hard task to determine the functional organisation of the brain.
+Not only is the knowledge of the functional structure of the human brain a major issue for neuroscientists, it's vast complexity is also fascinating for almost everyone.
+Major parts of the brain consists of neurons. 
+Biophysical aspects are understood on a neuron-wise context, membrane potentials, ion channels and signal propagation are topics to be found in all physiology books which are worth the paper they have been printed on.\cite[577 et. seq.]{guyton}
+% Commands to include a figure:
+
+\begin{figure}[ht]
+   \centering
+      %\subfloat[CAPTION]{BILDERCODE}\qquad
+      \subfloat[Structure of a large neuron in the brain showing it's important functional parts. \protect\cite{guyton}]{\includegraphics[scale=0.2]{pictures/largeNeuron.png}}\qquad %page 578
+      \subfloat[Top row: hypothetical plots of average neuronal activity over time. Bottom row: corresponding functional magnetic resonance imaging (fMRI) responses. Left: hypothetical haemodynamic impulse response function (HIRF) measured as the response to a brief pulse of neuronal activity. Right: the fMRI response when the average neuronal activity alternates (at specific times) between three different states.\protect\cite{Heeger2002}]{\includegraphics[width = 0.5\textwidth]{pictures/signalProcessing.png}}
+   %\caption[(a) bla]
+\end{figure}
+
+Being aware that a physical description is possible on a microscopic scale, it is a task of huge complexity to describe neural activity in total.
+Direct measurement of neural activity, i.e. placing eletrodes directly in the brain, requires surgery and most of the time this can only be done in animal experiments. 
+Information can be received at the scalp of the brain, however this is a rather rough estimation and not useful for drawing precise activation maps.\cite[6]{buxton}
+Modern approaches are positron emission tomography (PET) or funtional magnetic resonance imaging among others.
+These methods rely on a implicit measurement, as no electrical field or voltage drop is measured, but other quantities which are followup-like, namely glucose consumption or blood oxygenation level, which are again measured implicitly.
+In the former case, tracers with glucose accumulate in regions of high glucose consumption resulting in a local higher active radiation source.
+In the latter case, blood oxygenation level changes local inhomogenities of the magnetic field and leads to different \textit{T2*} relaxation.
+The author wants to focus on aspects of the latter one and shortly describe important underlying principles as well as the most basic but necessary physiological knowledge.
 
 \subsection{Neural Activity}
-Direct measurements, i.e. placing eletrodes directly in the brain, require surgery and most of the time this can only be done in animal experiments. 
-Information can be received at the scalp of the brain, however this is a rather rough estimation and not useful for drawing precise activation maps.\cite[6]{buxton}
-Modern approaches are positron emission tomography (PET) or funtional magnetic resonance imaging among others. The author wants to focus on the latter one and shortly describe important underlying principles.
+
+
 
 
 
@@ -184,4 +205,3 @@ Gadgets & 13
 \end{tabular}
 \caption{\label{tab:widgets}An example table.}
 \end{table}
-
