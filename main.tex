@@ -31,13 +31,15 @@
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
 
-\documentclass[12pt, a4paper]{article}
+\documentclass[a4paper]{scrartcl}
 \usepackage[english]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{graphicx}
-\usepackage{subfig}
+\usepackage{caption}
+\usepackage{subcaption}
 \usepackage[colorinlistoftodos]{todonotes}
+\addtokomafont{disposition}{\rmfamily}
 
 \usepackage{footnote}
 \makesavenoteenv{figure}
@@ -48,73 +50,19 @@
 
 \begin{document}
 
-\begin{titlepage}
-
-\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
-
-\center % Center everything on the page
- 
-%----------------------------------------------------------------------------------------
-%	HEADING SECTIONS
-%----------------------------------------------------------------------------------------
-
-\textsc{\LARGE Ruprecht-Karls-Universität Heidelberg}\\[1.5cm] % Name of your university/college
-\textsc{\Large Master Pflichtseminar}\\[0.5cm] % Major heading such as course name
-\textsc{\large Physik moderner MRT / CT Techniken}\\[0.5cm] % Minor heading such as course title
-
-%----------------------------------------------------------------------------------------
-%	TITLE SECTION
-%----------------------------------------------------------------------------------------
-
-\HRule \\[0.4cm]
-{ \huge \bfseries fMRT: BOLD-Kontrast und Darstellung von Gehirnaktivierung}\\[0.4cm] % Title of your document
-\HRule \\[1.5cm]
- 
-%----------------------------------------------------------------------------------------
-%	AUTHOR SECTION
-%----------------------------------------------------------------------------------------
-
-\begin{minipage}{0.4\textwidth}
-\begin{flushleft} \large
-\emph{Author:}\\
-Lucas-Raphael \textsc{Müller} % Your name
-\end{flushleft}
-\end{minipage}
-~
-\begin{minipage}{0.4\textwidth}
-\begin{flushright} \large
-\emph{Supervisor:} \\
-Michael \textsc{Ruttorf} % Supervisor's Name
-\end{flushright}
-\end{minipage}\\[2cm]
-
-% If you don't want a supervisor, uncomment the two lines below and remove the section above
-%\Large \emph{Author:}\\
-%John \textsc{Smith}\\[3cm] % Your name
-
-%----------------------------------------------------------------------------------------
-%	DATE SECTION
-%----------------------------------------------------------------------------------------
-
-{\large \today}\\[2cm] % Date, change the \today to a set date if you want to be precise
-
-%----------------------------------------------------------------------------------------
-%	LOGO SECTION
-%----------------------------------------------------------------------------------------
-
-% \includegraphics{logo.png}\\[1cm] % Include a department/university logo - this will require the graphicx package
- 
-%----------------------------------------------------------------------------------------
-
-\vfill % Fill the rest of the page with whitespace
-
-\end{titlepage}
+\title{fMRI: BOLD-Contrast and neural activity imaging}
+\subtitle{Master Pflichtseminar}
+\author{Lucas-Raphael Müller}
+% \date{\today}
+\maketitle
 
 \begin{abstract}
 Your abstract.
 \end{abstract}
 
 \tableofcontents
+
+\newpage
 
 \section{Introduction}
 \label{sec:intro}
@@ -129,12 +77,27 @@ Biophysical aspects are understood on a neuron-wise context, membrane potentials
 % Commands to include a figure:
 
 \begin{figure}[ht]
-   \centering
-      %\subfloat[CAPTION]{BILDERCODE}\qquad
-      \subfloat[Structure of a large neuron in the brain showing it's important functional parts. \protect\cite{guyton}]{\includegraphics[scale=0.2]{pictures/largeNeuron.png}}\qquad %page 578
-      \subfloat[Top row: hypothetical plots of average neuronal activity over time. Bottom row: corresponding functional magnetic resonance imaging (fMRI) responses. Left: hypothetical haemodynamic impulse response function (HIRF) measured as the response to a brief pulse of neuronal activity. Right: the fMRI response when the average neuronal activity alternates (at specific times) between three different states.\protect\cite{Heeger2002}]{\includegraphics[width = 0.5\textwidth]{pictures/signalProcessing.png}}
-   %\caption[(a) bla]
+\begin{subfigure}[l]{0.35\textwidth}
+
+\includegraphics[width = \textwidth]{pictures/largeNeuron.png}
+\subcaption{Structure of a large neuron in the brain showing it's important functional parts.\cite[578]{guyton}}
+
+\end{subfigure}
+\begin{subfigure}[r]{0.6\textwidth}
+\includegraphics[width = \textwidth]{pictures/signalProcessing.png}
+\subcaption{Top row: hypothetical plots of average neuronal activity over time. Bottom row: corresponding functional magnetic resonance imaging (fMRI) responses. Left: hypothetical haemodynamic impulse response function (HIRF) measured as the response to a brief pulse of neuronal activity. Right: the fMRI response when the average neuronal activity alternates (at specific times) between three different states.\cite{Heeger2002}}
+\end{subfigure}
+\caption{Zwei Bilder mit Subfigure nebeneinander}
 \end{figure}
+
+
+% \begin{figure}[ht]
+%    \centering
+%       %\subfloat[CAPTION]{BILDERCODE}\qquad
+%       \subfloat[Structure of a large neuron in the brain showing it's important functional parts. \protect\cite{guyton}]{\includegraphics[scale=0.2]{pictures/largeNeuron.png}}\qquad %page 578
+%       \subfloat[Top row: hypothetical plots of average neuronal activity over time. Bottom row: corresponding functional magnetic resonance imaging (fMRI) responses. Left: hypothetical haemodynamic impulse response function (HIRF) measured as the response to a brief pulse of neuronal activity. Right: the fMRI response when the average neuronal activity alternates (at specific times) between three different states.\protect\cite{Heeger2002}]{\includegraphics[width = 0.5\textwidth]{pictures/signalProcessing.png}}
+%    %\caption[(a) bla]
+% \end{figure}
 
 Being aware that a physical description is possible on a microscopic scale, it is a task of huge complexity to describe neural activity in total.
 Direct measurement of neural activity, i.e. placing eletrodes directly in the brain, requires surgery and most of the time this can only be done in animal experiments. 
@@ -144,6 +107,7 @@ These methods rely on a implicit measurement, as no electrical field or voltage 
 In the former case, tracers with glucose accumulate in regions of high glucose consumption resulting in a local higher active radiation source.
 In the latter case, blood oxygenation level changes local inhomogenities of the magnetic field and leads to different \textit{T2*} relaxation.
 The author wants to focus on aspects of the latter one and shortly describe important underlying principles as well as the most basic but necessary physiological knowledge.
+With ongoing progress in medical physics research promising measurement method \textit{Magnetoencephalography (MEG)} with great spatial and temporal resolution is mentioned briefly in \ref{sec:outlook}. 
 
 \subsection{Neural Activity}
 
@@ -167,6 +131,9 @@ Cerebal blood flow. Brain activity -. blood flow -. oxygenated hemoglobin -. $T_
 
 \section{Real example (me)}
 \label{sec:example}
+
+\section{Outlook}
+\label{sec:outlook}
 
 \printbibliography
 
