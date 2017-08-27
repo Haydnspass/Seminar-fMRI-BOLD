@@ -7,7 +7,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{graphicx}
-\usepackage{caption}
+\usepackage[labelfont=bf]{caption}
 \usepackage{subcaption}
 \usepackage{xargs}                      % Use more than one optional parameter in a new commands
 \usepackage[pdftex,dvipsnames]{xcolor}  % Coloured text etc.
@@ -19,6 +19,8 @@
 \newcommandx{\thiswillnotshow}[2][1=]{\todo[disable,#1]{#2}}
 
 \addtokomafont{disposition}{\rmfamily}
+
+\usepackage{hyperref}
 
 \usepackage{footnote}
 \makesavenoteenv{figure}
@@ -78,7 +80,7 @@ These methods rely on a implicit measurement, as no electrical field or voltage 
 In the former case, tracers with glucose accumulate in regions of high glucose consumption resulting in a local higher active radiation source.
 In the latter case, blood oxygenation level changes local inhomogenities of the magnetic field and leads to different \textit{$T_2^*$} relaxation.
 The author wants to focus on aspects of the latter one and shortly describe important underlying principles as well as the most basic but necessary physiological knowledge.
-With ongoing progress in medical physics research promising measurement method \textit{Magnetoencephalography (MEG)} with great spatial and temporal resolution is mentioned briefly in \ref{sec:outlook}. 
+With ongoing progress in medical physics research promising measurement method \textit{Magnetoencephalography (MEG)} with great spatial and temporal resolution is mentioned briefly in \autoref{sec:outlook}. 
 
 \subsection{Neural Activity}
 
@@ -92,7 +94,7 @@ Cerebal blood flow. Brain activity -. blood flow -. oxygenated hemoglobin -. $T_
 \label{sub:magneticProperties}
 The magnetic properties of hemoglobin and it's related substances were described by Pauling and Coryell in 1936.\cite{pauling}\improvement{Add information to pauling, journal etc.}
 Deoxygenated hemoglobin is paramagnetic since the iron atom is ionically bound and four unpaired electrons are present per hemoglobin-group. 
-As shown in figure \ref{fig:bindingHb}, oxygenated hemoglobin we see a covalent iron binding structure and no unpaired electrons, therefore oxygenated hemoglobin behaves diamagnetic.\cite{Zborowski}
+As shown in \autoref{fig:bindingHb}, oxygenated hemoglobin we see a covalent iron binding structure and no unpaired electrons, therefore oxygenated hemoglobin behaves diamagnetic.\cite{Zborowski}
 \begin{figure}[hb]
   \centering
   \includegraphics[width = .9\textwidth]{pictures/hemoglobinOxyMagnetic.png}
@@ -112,30 +114,67 @@ measured as image contrast by the MRI machine. As shown in figure \change{Add se
 
 The usefulness of a neuronal activity map does come with not only spatial but also temporal resolution.
 Therefore parameterspace is limited to this constraint.\change{does not sound good}
-We also need to limit parameters further, according to section \ref{sub:magneticProperties}. 
-We want to \textit{$T_2^*$ - weight} the image and account for local inhomogenities one can eliminate using Spin-Echo sequence.\improvement{wording}
+One also needs to limit parameters further, according to \autoref{sub:magneticProperties}. 
+We want to \textit{$T_2^*$ - weight} the image and account for local inhomogenities one eliminates on purpose using Spin-Echo sequence.\improvement{wording}
+Incorporating the requirements raised above (introduction \autoref{sec:sequenceSignal}) the author wants to draw the line from SE to EPI sequence.\improvement{Sounds strange.}
+\begin{figure}[hbt]
+  \centering
+  \begin{subfigure}[r]{0.45\textwidth}
+    \includegraphics[width = .9\textwidth]{pictures/seSeq.png}
+    \subcaption{Spin Echo Sequence with 90 and 180 degree flip.\cite[53]{weishaupt}}
+    \label{subfig:se}
+  \end{subfigure}
+  \centering
+  \begin{subfigure}[l]{0.45\textwidth}
+    \includegraphics[width = .9\textwidth]{pictures/greSeq.png}
+    \subcaption{Gradient Echo Sequence.\cite[XXX]{weishaupt}}
+    \label{subfig:gre}
+  \end{subfigure}
+  \centering
+  \begin{subfigure}[r]{0.9\textwidth}
+    \includegraphics[width = .9\textwidth]{pictures/episeq.png}
+    \subcaption{Echo Planar Imaging Sequence. No 180 degree flip, de and rephasing with rapidly switching frequency gradients. One complete slice per excitation (single-shot).\cite[59]{weishaupt}}
+    \label{subfig:epi}
+    \end{subfigure}
+  \caption{Spin Echo, Gradient Echo and Echo Planar Imaging Sequence. Taken from Weishaupt et. al, 'Wie funktioniert MRI?'\cite{weishaupt}}
+\end{figure}
+Citationstyle\unsure{Unsure citation style.}\change{Citation GRE dummy}
+Going back to the very basic Spin Echo sequence (by Erwin Hahn \cite{hahn}) one uses a time excessiv 180 degree pulse to refocus magnetic moments and eliminate local inhomogenities.
+ In this sequence one \textit{line} of constant phase in fourier-space is acquired at a time.
+This sequence is time-consuming due to the use of a 180 degree pulse and the serial acquisation of \textit{lines} in 2D fourier space, therefore one can not use this sequence for BOLD contrast. 
+Firstly, one wants to account for local inhomogenities (free induction decay, $T_2^*$), secondly the SE is too slow to fullfil the requirement of reasonable temporal resolution.
+Gradient- or Fast-Field-Echo (GRE resp. FFE\unsure{look up how to write this}) sequences omit a 180 degree refocussing radio frequency pulse and enforce de- and rephasing with a negative and positive frequency gradient.
+This leads to the availability of short repition times.
+Since the abscence of a 180 degree rf pulse, there is no compensation for local inhomogenities and the signal decays with $T_2^*$.\cite[52]{weishaupt}
 
 \subsection{Echo Planar Imaging Sequence}
 \label{sub:epi}
 
-Incorporating the requirements raised above (introduction section \ref{sec:sequenceSignal}) the author wants to draw the line from SE to EPI sequence.\improvement{Sounds strange.}
-\begin{figure}[hbt]
+With the sequence of intereset, the \textit{echo planar imaging sequence}, even shorter acquisition times are available.
+It is a \textit{one step further} GRE-sequence and condenses the acquisition of a complete 2D image within a single excitation as shown in \autoref{subfig:epi}.
+\begin{figure}[hb]
   \centering
-  \begin{subfigure}[l]{0.45\textwidth}
-    \includegraphics[width = .9\textwidth]{pictures/seSeq.png}
-    \subcaption{Spin Echo Sequence with 90 and 180 degree flip.\cite[53]{weishaupt}}
-  \end{subfigure}
-  \centering
-  \begin{subfigure}[r]{0.45\textwidth}
-    \includegraphics[width = .9\textwidth]{pictures/episeq.png}
-    \subcaption{Echo Planar Imaging Sequence. No 180 degree flip, de and rephasing with rapidly switching frequency gradients. One complete slice per excitation.\cite[59]{weishaupt}}
-    \end{subfigure}
-  \caption{Spin Echo and Echo Planar Imaging Sequence. Taken from Weishaupt et. al, 'Wie funktioniert MRI?'\cite{weishaupt}}
+  \includegraphics[width = .5\textwidth]{pictures/kSpaceEpi.png}
+  \caption{EPI sequence in 2D k-space. Blipped phase gradient is shown here (rectilinear curvature).}
+  \label{fig:kEpi}
 \end{figure}
-Citationstyle\unsure{Unsure citation style.}
-Going back to the very basic Spin Echo sequence (by Erwin Hahn \cite{hahn}) one uses a time excessiv 180 degree pulse to refocus magnetic moments and eliminate local inhomogenities.
-In this sequence one \textit{line} of constant phase in fourier-space is acquired at a time.
-This sequence is time consuming due to the use of the 180 degree pulse and the serial acquisation of \textit{lines} in 2D fourier space, therefore one can not use this sequence for BOLD contrast, since (1) one wants to account for local inhomogenities (free induction decay, $T_2^*$) and (2) the SE is too slow to fullfil the requirement of reasonable temporal resolution.
+After an initial slice-selective $\alpha$-pulse\footnote{Note that one is not fixed to 90degree angle as initial excitation and often uses different angles as a tradeoff between excitation amplitude and T1 relaxation possibility. This can be in principal used for many image sequences but is integral part in others (e.g. GRE sequence in \autoref{subfig:gre}).} a strong negative phase gradient is applied and the frequency gradient switches polarity very rapidly.
+As with the GRE sequence, de- and rephasing is induced with this former frequency gradient. 
+In contrast to GRE, phase direction is read during a single or very few excitations (single shot EPI, multi-shot EPI respectively) which can be done by the small intermediate \textit{blibs} of the phase gradient, resulting in the rectilinear curvature as shown in \autoref{fig:kEpi}.
+This is known as the \textit{blipped EPI} sequence, a development coming from an earlier \textit{non-blipped EPI} which used a constant phase gradient resulting in a global zick-zack structure.\cite[1048]{delapaz}\\
+Conventionally, imaging time is
+\begin{equation}
+  T_{tot} = NEX \cdot TR \cdot NPS,
+\end{equation}
+where NEX is the number of excitations per step, TR repition time and NPS is the number of phase encoding steps.
+A typical $T_1$ weighted image with $TR = 500ms$ and 128 phase-encoding steps would require approximately $1min$ imaging time, a $T_2$ weighted image with $TR = 3000ms$ approximately $6min$.\cite[92]{buxton}
+This would clearly contradict the requirement of reasonable temporal resolution, since physiological effects would smear out over this amount of time.
+With adjusted TR, GRE achieves orders of magnitude less acquisition times ($<1s$), condensing the phase encoding steps in one excitation (single-shot) \enquote{acquisition of single images in as little as 20 msec [...]}\cite[1045]{delapaz} are possible.
+
+\subsubsection{Features}
+
+
+\subsubsection{Drawbacks}
 
 
 \section{Software}
