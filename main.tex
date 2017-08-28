@@ -21,7 +21,7 @@
 \addtokomafont{disposition}{\rmfamily}
 
 \usepackage{hyperref}
-
+\usepackage[verbose]{placeins}
 \usepackage{footnote}
 \makesavenoteenv{figure}
 
@@ -104,10 +104,9 @@ As shown in \autoref{fig:bindingHb}, oxygenated hemoglobin we see a covalent iro
 XXX\improvement{Ask Max which is what.}
 This is the very difference which leads to a deviation in the measured signal between deoygenated hemoglobin and oxygenated hemoglobin.
 A paramagnet leads to a stronger distortion of the local magnetic field than a diamagnetic behaviour, therefor a signal decrease because of stronger $T_2^*$ decay due to faster dephasing.
-measured as image contrast by the MRI machine. As shown in figure \change{Add sequence / relaxation figure or reference it.} 
+measured as image contrast by the MRI machine. As shown in figure \change{Add sequence / relaxation figure or reference it.}
 
-\section{Hardware}
-\label{sec:hardware}
+\subsection{Paradigm Design}
 
 \section{Sequence and Signal}
 \label{sec:sequenceSignal}
@@ -152,9 +151,9 @@ Since the abscence of a 180 degree rf pulse, there is no compensation for local 
 
 With the sequence of intereset, the \textit{echo planar imaging sequence}, even shorter acquisition times are available.
 It is a \textit{one step further} GRE-sequence and condenses the acquisition of a complete 2D image within a single excitation as shown in \autoref{subfig:epi}.
-\begin{figure}[hb]
+\begin{figure}[bh]
   \centering
-  \includegraphics[width = .5\textwidth]{pictures/kSpaceEpi.png}
+  \includegraphics[width = .4\textwidth]{pictures/kSpaceEpi.png}
   \caption{EPI sequence in 2D k-space. Blipped phase gradient is shown here (rectilinear curvature).}
   \label{fig:kEpi}
 \end{figure}
@@ -171,21 +170,94 @@ A typical $T_1$ weighted image with $TR = 500ms$ and 128 phase-encoding steps wo
 This would clearly contradict the requirement of reasonable temporal resolution, since physiological effects would smear out over this amount of time.
 With adjusted TR, GRE achieves orders of magnitude less acquisition times ($<1s$), condensing the phase encoding steps in one excitation (single-shot) \enquote{acquisition of single images in as little as 20 msec [...]}\cite[1045]{delapaz} are possible.
 
-\subsubsection{Features}
+\subsubsection{Features and Drawbacks}
+With the ultra-short acquisition time, i.e. great temporal resolution, comes lower spatial resolution and increased artifacts and lower \textit{signal-to-noise} ratio.
+The latter because \enquote{wide receiving bandwidths are needed for fast data acquisition.}\cite[1050]{delapaz} As for any measurement (Fourier theory\info{can I prove that?}) frequency resolution, i.e. reciprocal bandwith, is proportional to the sampling time (per pixel).
+Great demand on frequcny gradient coils.\change{Ausformulieren} Very loud.\change{Auch ausformulieren.}\\
+
+\section{Hardware}
+\label{sec:hardware}
+
+\subsection{Scanner}
+Functional MRI BOLD images benefit from high-field MRI scanners with 3T or greater.
+Since the EPI-sequence leads to inherent significant SNR-loss, high-field scanners are needed to partially compensate for this effect, i.e. allow the scientific meaningful use of the BOLD contrast technique.
+\begin{figure}[bh]
+  \centering
+  \includegraphics[width = .5\textwidth]{pictures/compTesla.png}
+  \caption{Comparison of 1.5 and 4.0T BOLD-Response.\cite{turner}}
+  \label{fig:compTesla}
+\end{figure}
+In \autoref{fig:compTesla} the difference of the BOLD response between is shown, the advantage of the high-field scanner is clear.
+
+\subsection{Special Equipment}
+In order to achieve the stimulus of interest inside the patient\improvement{Change this wording!}, presentation equipment including
+\begin{itemize}
+  \item projectors and screens,
+  \item goggles,
+  \item response devices,
+  \item headphones and other audio devices,
+\end{itemize}
+may be availablae on behalf of the patient. Mirrors can be used to have patient looking at a projected image outside and behind the scanner.
+Because the rapidly switching frequency coil induce a great amount of noise, ear protection must be worn on behalf of the patient. This can be part of auditory stimulating headphones.
+Care must be taken ot to confuse MRI noise induced stimuli with externally applied ones.\\
+The ability to synchronize scanner software to perform the appropriate pulse sequence is central to the fMRI experiment. This critical because precise knowledge of the task timing relative to image acquisition is required mease the small signal differences between task and control conditions.\cite[3]{rigolo}
+This can be done with a hardware synchronizer device as well as with specifically engineered software.
 
 
-\subsubsection{Drawbacks}
+\section{Post-Processing}
+\label{sec:post}
 
 
-\section{Software}
-\label{sec:software}
-
-
-\section{Real example (me)}
+\section{Sample Study}
 \label{sec:example}
+
+\begin{figure}[hbt]
+  \centering
+  \begin{subfigure}[c]{0.45\textwidth}
+    \includegraphics[width = .9\textwidth]{pictures/tappingLRM.png}
+    \subcaption{Finger tapping paradmign.}
+    \label{subfig:se}
+  \end{subfigure}
+  \centering
+  \begin{subfigure}[c]{0.45\textwidth}
+    \includegraphics[width = .9\textwidth]{pictures/visualLRM.png}
+    \subcaption{Visual \textit{floating chess board} paradmign.}
+    \label{subfig:gre}
+  \end{subfigure}
+\end{figure}
+
+\begin{figure}[bh]
+  \centering
+  \includegraphics[width = .7\textwidth]{pictures/voxelIntensity.png}
+  \caption{RAW data fMRI}
+  \label{fig:compTesla}
+\end{figure}
+
+\section{Discussion}
+\label{sec:discussion}
+
+\begin{figure}[bh]
+  \centering
+  \includegraphics[width = .7\textwidth]{pictures/deathFish.png}
+  \caption{Neural correlates of interspecies perspective taking in the post-mortem Atlantic Salmon: An argument for multiple comparisons correction.\cite{fish}}
+  \label{fig:compTesla}
+\end{figure}
+
+
+
+\FloatBarrier
 
 \section{Outlook}
 \label{sec:outlook}
+
+\begin{figure}[bh]
+  \centering
+  \includegraphics[width = .7\textwidth]{pictures/megKiddo.png}
+  \caption{MEG}
+  \label{fig:compTesla}
+\end{figure}
+
+\FloatBarrier
 
 \newpage
 \printbibliography
